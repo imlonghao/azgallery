@@ -15,14 +15,7 @@
         "utf8"
       );
     }));
-    const albums = strs.map(JSON.parse).map((metadata) => {
-      metadata["images"] = metadata["images"].map((image) => {
-        return path.posix.join(
-          config["rootDir"], config["galleryDir"], metadata["dir"], image
-        );
-      });
-      return metadata;
-    });
+    const albums = strs.map(JSON.parse);
     // Newest first.
     albums.sort((a, b) => {
       return b["created"] - a["created"];
@@ -104,7 +97,7 @@
       const created = new Date(album["created"]);
       const parts = formatter.formatToParts(created);
       const obj = {};
-      for (let {type, value} of parts) {
+      for (let { type, value } of parts) {
         obj[type] = value;
       }
       if (obj["year"] !== lastYear) {
